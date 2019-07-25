@@ -1,6 +1,27 @@
 var model = {
-    studentList:[],
-    numOfAttendanceDays: 7,
+    studentList:[
+        {
+            name: "Eze",
+            attendance:[false,false,false,false,false,false,false,false,false]
+        },
+        {
+            name: "KC",
+            attendance:[true,false,true,true,false,false,false,false,false]
+        },
+        {
+            name: "Uzo",
+            attendance:[false,true,false,true,false,false,false,false,false]
+        },
+        {
+            name: "Ugo",
+            attendance:[false,false,true,false,true,false,false,false,false]
+        },
+        {
+            name: "Jude",
+            attendance:[false,true,false,false,true,false,false,false,false]
+        }
+    ],
+    numOfAttendanceDays: 9,
     selectedStudent: null,
     uniqueName: new Set()
 };
@@ -144,6 +165,87 @@ var view = {
                 tableH.append('<th class="day-col">' + day + '</th>');                
             }
             tableH.append('<th class="missed-col">Days Missed-col</th>');
+
+            console.log('studentList', studentList.length);
+
+            //Then we check our list and update accordingly
+            if (studentList.length != 0) {
+                let totalAttendance = 0; //Total class attendance
+                const tableB = $('table tbody'); //Get table body area
+
+                //Loop thru each student data
+                for (let i = 0; i < studentList.length; i++) {
+                    const student = studentList[i];
+                    //Create row for table
+                    const tr = document.createElement('tr');
+                    tr.classList.add('student');
+
+                    //create td for s/n checkbox
+                    const tdsn = document.createElement('td');
+                    tdsn.classList.add('sn-col');
+
+                    //create s/n checkbox
+                    const snChb = document.createElement('input');
+                    snChb.type = "checkbox";
+
+                    //Function  enables us set checkbox change for each serial number checkbox
+                    $(snChb).change(function(){
+                        //Get the parent of this snChb
+                        const tr = ((this.parentElement).parentElement);
+                        if(this.checked){
+                            //I can't trust toggle - need to make sure
+                            $(tr).addClass('hightlight');
+                            // $(tr).css({
+                            //     "border": "2px solid yellow"
+                            // });
+                            // console.log (tr);
+                            // console.log ("I'm checked");
+                        } else {
+                            $(tr).removeClass('hightlight');
+                            // $(tr).css({
+                            //     "border": "2px solid transparent"
+                            // });
+                            // console.log (tr);
+                            // console.log ("I'm not checked");
+                        }
+                    });
+
+                    //Append s/n checkbox to td row
+                    tdsn.append(snChb);
+                    //Append td checkbox to tr row
+                    tr.append(tdsn); 
+
+                    //For Student names
+                    const studentName = student.name;
+                    $(tr).append('<td class="name-col">'+ studentName + '</td>');
+
+                    let studentAttendanceCount = 0;//Total number of this student's attendance
+
+                    const studentAttendance = student.attendance;
+                    for (let j = 0; j < studentAttendance.length; j++) {
+                        const elementVal = studentAttendance[j]; //This is a bool value
+                        const chb = document.createElement('input');
+                        chb.type = "checkbox";
+                        // console.log("elementVal",elementVal);
+                        $(chb).prop( "checked", elementVal);
+                        // console.log('chb', chb);
+                        const tdChb = document.createElement('td');
+                        tdChb.classList.add('attend-col');
+                        tdChb.append(chb);
+                        tr.append(tdChb);
+                        // $(tr).append('<td class="attend-col">'+ chb + '</td>');
+                        if(elementVal == true){
+                            studentAttendanceCount++;
+                            // console.log(j, studentAttendanceCount);
+                        }
+                    }
+                    const missedAttendance = numOfAttendDays - studentAttendanceCount;
+                    // console.log('missed', missedAttendance);
+                    $(tr).append('<td class="missed-col">'+ missedAttendance + '</td>');
+
+                    tableB.append(tr);
+                }
+            }
         }
     }
 }
