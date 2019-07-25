@@ -7,7 +7,7 @@ var model = {
 
 var octopus = {
     init: function(){
-        view.init();
+        view.render();
     },
     createStudent: function(name, numAttenDays){
         let student = new Object({
@@ -127,9 +127,11 @@ var octopus = {
 
 //One view can handle what is my head currently - I hope
 var view = {
-    init: function(){
+    render: function(){
         const numOfAttendDays = octopus.getNumOfAttendDays(); //Get Number of Attendance Days
-        console.log('No of Attendee', numOfAttendDays);
+        const studentList = octopus.getStudentList();//Let's get our students
+        // console.log('No of Attendee', numOfAttendDays);
+
         //check Number of Attendance Days. If zero don't do anything for now
         if (numOfAttendDays != 0) {
             $('table thead').append('<tr></tr>');
