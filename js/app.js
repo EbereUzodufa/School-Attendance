@@ -6,6 +6,9 @@ var model = {
 };
 
 var octopus = {
+    init: function(){
+        view.init();
+    },
     createStudent: function(name, numAttenDays){
         let student = new Object({
             name: name,
@@ -118,6 +121,17 @@ var octopus = {
                     model.studentList.splice(i, 1);
                 }    
             }        
+        }
+    }
+}
+
+//One view can handle what is my head currently - I hope
+var view = {
+    init: function(){
+        console.log('No of Attendee', octopus.getNumOfAttendDays());
+        if (octopus.getNumOfAttendDays() === 0) {
+            const tableH = $('table thead'); //Get table head
+            tableH.append('<tr><th></th></tr>');
         }
     }
 }
