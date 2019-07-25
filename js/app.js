@@ -128,10 +128,22 @@ var octopus = {
 //One view can handle what is my head currently - I hope
 var view = {
     init: function(){
-        console.log('No of Attendee', octopus.getNumOfAttendDays());
-        if (octopus.getNumOfAttendDays() === 0) {
-            const tableH = $('table thead'); //Get table head
-            tableH.append('<tr><th></th></tr>');
+        const numOfAttendDays = octopus.getNumOfAttendDays(); //Get Number of Attendance Days
+        console.log('No of Attendee', numOfAttendDays);
+        //check Number of Attendance Days. If zero don't do anything for now
+        if (numOfAttendDays != 0) {
+            $('table thead').append('<tr></tr>');
+            const tableH = $('table thead tr'); //Get table head area
+            // console.log(tableH);
+            tableH.append('<th>S/N</th>');
+            tableH.append('<th>Student Name</th>');
+            for (let i = 0; i < numOfAttendDays; i++) {
+                const day = "Day " + (i + 1).toString();
+                tableH.append('<th class="day-col">' + day + '</th>');                
+            }
+            tableH.append('<th class="missed-col">Days Missed-col</th>');
         }
     }
 }
+
+octopus.init();
