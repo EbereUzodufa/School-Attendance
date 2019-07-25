@@ -1,7 +1,8 @@
 var model = {
     studentList:[],
     numOfAttendanceDays: 7,
-    selectedStudent: null
+    selectedStudent: null,
+    uniqueName: new Set()
 };
 
 var octopus = {
