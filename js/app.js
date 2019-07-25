@@ -48,5 +48,76 @@ var octopus = {
     },
     deleteSelectedStudent: function(thisStudentIndex){
         model.studentList.splice(thisStudentIndex, 1);
+    },
+    deleteSelectedStudents: function(thisStudents){
+        //The plan is to make sure we use the for loop just once - This improve optimzation
+        
+        //#region my Test
+        //Not testing with forEach coz I jsut want to work with ES5 here
+
+        // const testPerformance1 = function(thisStudents){
+        //     const t0 = performance.now();
+        //     let j = 0;
+        //     hhu = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+        //     console.log('Parent array inital', hhu);
+        //     console.log('take away from array', thisStudents);
+
+        //     for (let i = 0; i < hhu.length; i++) {
+        //         const element = hhu[i];
+        //         let deleteElem = thisStudents[j];
+
+        //         if (deleteElem == element) {
+        //             hhu.splice(i, 1);
+        //             j++;
+        //             i--;
+        //         }            
+        //     }
+
+        //     const t1 = performance.now();
+        //     console.log('Total time on testPerformance1 - ' + (t1 - t0));
+        //     console.log('Parent array final', hhu);
+
+        //     // answer with Google Chrome => Total time on testPerformance2 - 3.484999993816018ms
+        // }
+
+        // const testPerformance2 = function(thisStudents){
+        //     const t0 = performance.now();
+        //     hhu = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+        //     console.log('Parent array inital', hhu);
+        //     console.log('take away from array', thisStudents);
+
+        //     for (let j = 0; j < thisStudents.length; j++){
+        //         const deleteElem = thisStudents[j];
+
+        //         for (let i = 0; i < hhu.length; i++) {
+        //             const element = hhu[i];
+
+        //             if (deleteElem == element) {
+        //                 hhu.splice(i, 1);
+        //             }    
+        //         }        
+        //     }
+
+        //     const t1 = performance.now();
+        //     console.log('Total time on testPerformance2 - ' + (t1 - t0));
+        //     console.log('Parent array final', hhu);
+
+        //     // answer with Google Chrome => Total time on testPerformance2 - 2.759999828413129ms
+        // }
+        //#endregion
+
+        for (let j = 0; j < thisStudents.length; j++){
+            const deleteElem = thisStudents[j].name;
+
+            for (let i = 0; i < model.studentList.length; i++) {
+                const element = model.studentList[i].name;
+
+                if (deleteElem == element) {
+                    model.studentList.splice(i, 1);
+                }    
+            }        
+        }
     }
 }
