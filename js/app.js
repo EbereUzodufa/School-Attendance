@@ -166,7 +166,7 @@ var view = {
             }
             tableH.append('<th class="missed-col">Days Missed-col</th>');
 
-            console.log('studentList', studentList.length);
+            // console.log('studentList', studentList.length);
 
             //Then we check our list and update accordingly
             if (studentList.length != 0) {
@@ -195,6 +195,7 @@ var view = {
                         if(this.checked){
                             //I can't trust toggle - need to make sure
                             $(tr).addClass('hightlight');
+                            //I don't want to set the border on the DOM. Class add/remove gives a better UI
                             // $(tr).css({
                             //     "border": "2px solid yellow"
                             // });
