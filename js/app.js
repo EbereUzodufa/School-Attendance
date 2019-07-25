@@ -44,5 +44,8 @@ var octopus = {
     updateSelectedName: function(thisStudentName) {
         //Since the selected object is set to a student in the studentList array, I can update it here and it will also take effects on the studentList array.
         model.selectedStudent.name = thisStudentName;
+    },
+    deleteSelectedStudent: function(thisStudentIndex){
+        model.studentList.splice(thisStudentIndex, 1);
     }
 }
