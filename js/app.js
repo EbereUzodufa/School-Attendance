@@ -225,11 +225,45 @@ var view = {
                     const studentAttendance = student.attendance;
                     for (let j = 0; j < studentAttendance.length; j++) {
                         const elementVal = studentAttendance[j]; //This is a bool value
+
                         const chb = document.createElement('input');
                         chb.type = "checkbox";
+
+                        chb.addEventListener('change', (function(thisStudent){
+                            return function(){
+                                //set selected student
+                                octopus.setSelectedStudent(thisStudent);
+                                let attendanceArray = []; //Get the checked  values
+                                //First get all elements that has class attend-col in this row
+                                const par = chb.parentElement.parentElement.querySelectorAll(".attend-col");
+                                // console.log(thisStudent);
+
+                                //For each of them get there checked value
+                                for(var i=0; i < par.length; i++){
+                                    const checkStatus = par[i].children[0].checked;
+                                    attendanceArray.push(checkStatus); //Add status to array and then render;
+                                    // console.log(checkStatus);
+                                }
+                                console.log("attendanceArray", attendanceArray);
+                                octopus.updateSelectedStudentAttendance(attendanceArray);
+                                $('table thead').html('');
+                                $('table tbody').html('');
+                                view.render();
+                            }
+                        })(student));
+
+                        // //Add event Listener to checkbox
+                        // $(chb).change((function(thisStudent){
+                        //     // octopus.setSelectedStudent(thisStudent);
+                        //     // console.log('I changed');
+                        //     console.log(thisStudent);
+                        //     // view.render();
+                        // })(student));
+                                                
                         // console.log("elementVal",elementVal);
                         $(chb).prop( "checked", elementVal);
                         // console.log('chb', chb);
+
                         const tdChb = document.createElement('td');
                         tdChb.classList.add('attend-col');
                         tdChb.append(chb);
