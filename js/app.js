@@ -143,6 +143,19 @@ var octopus = {
                 }    
             }        
         }
+    },
+    totalMissedAttendance: function(){
+        let totalAttendance = 0; //Total class attendance
+        var list = model.studentList;
+        for(let i = 0; i < list.length; i++){
+            const stud = list[i].attendance;
+            for(let j = 0; j < stud.length; j++){
+                if(stud[j] == false){
+                    totalAttendance++
+                }
+            }
+        }
+        return totalAttendance;
     }
 }
 
@@ -170,7 +183,6 @@ var view = {
 
             //Then we check our list and update accordingly
             if (studentList.length != 0) {
-                let totalAttendance = 0; //Total class attendance
                 const tableB = $('table tbody'); //Get table body area
 
                 //Loop thru each student data
@@ -248,6 +260,7 @@ var view = {
                                 octopus.updateSelectedStudentAttendance(attendanceArray);
                                 $('table thead').html('');
                                 $('table tbody').html('');
+                                console.log("totalMissedAttendance",octopus.totalMissedAttendance());
                                 view.render();
                             }
                         })(student));
