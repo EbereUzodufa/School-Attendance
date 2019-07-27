@@ -256,11 +256,11 @@ var view = {
                                     attendanceArray.push(checkStatus); //Add status to array and then render;
                                     // console.log(checkStatus);
                                 }
-                                console.log("attendanceArray", attendanceArray);
+                                // console.log("attendanceArray", attendanceArray);
                                 octopus.updateSelectedStudentAttendance(attendanceArray);
                                 $('table thead').html('');
                                 $('table tbody').html('');
-                                console.log("totalMissedAttendance",octopus.totalMissedAttendance());
+                                // console.log("totalMissedAttendance",octopus.totalMissedAttendance());
                                 view.render();
                             }
                         })(student));
@@ -292,6 +292,9 @@ var view = {
                     $(tr).append('<td class="missed-col">'+ missedAttendance + '</td>');
 
                     tableB.append(tr);
+
+                    const totalMissedAttendance = octopus.totalMissedAttendance();
+                    $('span#totalMissedAttendance').html(totalMissedAttendance);
                 }
             }
         }
